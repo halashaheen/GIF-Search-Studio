@@ -8,8 +8,12 @@ A simple Python web application that interacts with a public GIF API endpoint, a
 - **Object-Oriented Modeling:** Encapsulates GIF metadata and media URLs using a dedicated `GifItem` model.
 - **Web Interface:** Renders search results cleanly through HTML templates.
 
-<video src="https://github.com/halashaheen/GIF-Search-Studio/blob/main/GIFs/GIF-1.mp4" controls="controls" style="max-width: 730px;">
-</video>
+## Demo
+
+[https://githubusercontent.com](https://github.com/halashaheen/GIF-Search-Studio/blob/main/GIFs/GIF-1.mp4)
+
+## Features
+
 
 
 ## Project Structure
