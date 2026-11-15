@@ -8,7 +8,9 @@ A simple Python web application that interacts with a public GIF API endpoint, a
 - **Object-Oriented Modeling:** Encapsulates GIF metadata and media URLs using a dedicated `GifItem` model.
 - **Web Interface:** Renders search results cleanly through HTML templates.
 
-<video controls src="GIFs/GIF-1.mp4" title="Title"></video>
+<video src="GIFs\GIF-1.mp4" controls="controls" style="max-width: 730px;">
+</video>
+
 
 ## Project Structure
 
