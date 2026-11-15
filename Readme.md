@@ -10,7 +10,7 @@ A simple Python web application that interacts with a public GIF API endpoint, a
 
 ## Demo
 
-[https://githubusercontent.com](https://github.com/halashaheen/GIF-Search-Studio/blob/main/GIFs/GIF-1.mp4)
+[Demo Link](https://github.com/halashaheen/GIF-Search-Studio/blob/main/GIFs/GIF-1.mp4)
 
 ## Features
 
