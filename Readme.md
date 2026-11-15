@@ -12,8 +12,6 @@ A simple Python web application that interacts with a public GIF API endpoint, a
 
 ![alt text](GIFs/image.png)
 [Demo Link](https://github.com/halashaheen/GIF-Search-Studio/blob/main/GIFs/GIF-1.mp4)
-<video src="GIFs/GIF-1.mp4" controls="controls" style="max-width: 730px;">
-</video>
 
 
 ## Features
