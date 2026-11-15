@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIPHY Search Studio</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            min-height: 100vh;
+            padding: 40px 20px 80px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        /* High-Contrast Search Box */
+        .search-section {
+            max-width: 680px;
+            margin: 0 auto 36px;
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 16px;
+            border: 2px solid #334155;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        .search-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 16px;
+            color: #0f172a;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.25);
+        }
+
+        .search-btn {
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: #7c3aed;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #6d28d9;
+        }
+
+        /* Quick Suggestion Chips */
+        .quick-tags {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .tag-btn {
+            background-color: #334155;
+            color: #e2e8f0;
+            border: 1px solid #475569;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .tag-btn:hover {
+            background-color: #7c3aed;
+            border-color: #7c3aed;
+            color: #ffffff;
+        }
+
+        /* Error Message */
+        .error-banner {
+            max-width: 680px;
+            margin: 0 auto 28px;
+            padding: 14px 18px;
+            background-color: #450a0a;
+            border: 1px solid #ef4444;
+            border-radius: 10px;
+            color: #fecaca;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Results Grid */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .gif-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .gif-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gif-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            background-color: #0f172a;
+        }
+
+        .gif-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(15, 23, 42, 0.85);
+            color: #f8fafc;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        .gif-info {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .gif-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .gif-meta {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .gif-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-copy {
+            background-color: #7c3aed;
+            color: #ffffff;
+        }
+
+        .btn-copy.copied {
+            background-color: #10b981;
+        }
+
+        .btn-open {
+            background-color: #334155;
+            color: #f8fafc;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            background-color: #1e293b;
+            border: 1px dashed #475569;
+            border-radius: 14px;
+            max-width: 680px;
+            margin: 0 auto;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 600px) {
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GIPHY Search Studio</h1>
+            <p class="subtitle">Type a keyword below to search and copy GIFs</p>
+        </header>
+
+        <!-- Search Box Section -->
+        <section class="search-section">
+            <label for="gif-query" class="search-label">Search for GIFs:</label>
+            <form method="POST" action="/" class="search-form" id="search-form">
+                <input
+                    type="text"
+                    id="gif-query"
+                    name="query"
+                    class="search-input"
+                    placeholder="e.g. Gardens, Sucess, Thank You, Coding..."
+                    value="{{ query if query else '' }}"
+                    required
+                    autofocus
+                >
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+
+            <div class="quick-tags">
+                <span>Try:</span>
+                <button type="button" class="tag-btn" onclick="quickSearch('Gardens')">Gardens</button>
+                <button type="button" class="tag-btn" onclick="quickSearch('Success')">Success</button>
+                <button type="button" class="tag-btn" onclick="quickSearch('Thank You')">Thank You</button>
+                <button type="button" class="tag-btn" onclick="quickSearch('Coding')">Coding</button>
+            </div>
+        </section>
+
+        {% if error %}
+            <div class="error-banner">{{ error }}</div>
+        {% endif %}
+
+        {% if gifs %}
+            <div class="results-header">
+                <h2>Results for "{{ query }}"</h2>
+                <span>{{ gifs|length }} GIFs found</span>
+            </div>
+
+            <div class="gif-grid">
+                {% for gif in gifs %}
+                    <div class="gif-card">
+                        <div class="gif-media">
+                            <img src="{{ gif.url }}" alt="{{ gif.title }}" loading="lazy">
+                            {% if gif.rating %}
+                                <span class="rating-badge">{{ gif.rating }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="gif-info">
+                            <div>
+                                <div class="gif-title">{{ gif.title }}</div>
+                                {% if gif.width and gif.height %}
+                                    <div class="gif-meta">{{ gif.width }} × {{ gif.height }} px</div>
+                                {% endif %}
+                            </div>
+                            <div class="gif-actions">
+                                <button type="button" class="btn-action btn-copy" onclick="copyUrl(this, '{{ gif.url }}')">
+                                    Copy URL
+                                </button>
+                                <a href="{{ gif.url }}" target="_blank" rel="noopener noreferrer" class="btn-action btn-open">
+                                    Open
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif query and not error %}
+            <div class="empty-state">
+                <h3>No GIFs found for "{{ query }}"</h3>
+                <p>Try searching for another keyword above.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function quickSearch(term) {
+            const input = document.getElementById('gif-query');
+            input.value = term;
+            document.getElementById('search-form').submit();
+        }
+
+        function copyUrl(btn, url) {
+            navigator.clipboard.writeText(url).then(() => {
+                btn.innerText = "Copied!";
+                setTimeout(() => {
+                    btn.innerText = "Copy URL";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
+
