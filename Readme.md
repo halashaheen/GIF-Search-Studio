@@ -30,8 +30,7 @@ GIF-Search-Studio/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com
-   cd GIF-Search-Studio
+   git clone https://github.com/halashaheen/GIF-Search-Studio.git
    ```
 
 2. **Create and activate a virtual environment (optional):**
@@ -50,9 +49,8 @@ GIF-Search-Studio/
 Set up your GIF API key as an environment variable (or update your configuration file as defined in `app.py` / `main.py`):
 
 ```bash
-export GIF_API_KEY="your_api_key_here"
+ set GIF_API_KEY=your_api_key_here
 ```
-*(On Windows Command Prompt, use `set GIF_API_KEY=your_api_key_here`)*
 
 ## Usage
 
